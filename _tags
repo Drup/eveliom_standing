@@ -1,0 +1,4 @@
+# OASIS_START
+# OASIS_STOP
+<src/*.ml>: syntax(camlp4o)
+<src/*.ml{,i}>: thread

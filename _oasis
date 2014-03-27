@@ -1,0 +1,25 @@
+OASISFormat: 0.4
+Name:        Eve Standing
+Version:     0.1
+Synopsis:    Eve Standing Website
+Description: A nice website fetching and presenting eve standings of a alliance, corporation or individual.
+Authors:     Drup <drupyog@zoho.com>
+License:     WTFPL
+Plugins:     META (0.3), DevFiles (0.3)
+
+
+AlphaFeatures: ocamlbuild_more_args, compiled_setup_ml
+
+BuildTools: ocamlbuild
+XOCamlbuildPluginTags: package(eliom.ocamlbuild)
+OCamlVersion: >= 4.01
+
+Library standing
+  Path: src
+  Modules:
+    Common,
+    Qstanding,
+    Standings
+  BuildDepends:
+    eveliom.api,
+    lwt.syntax
