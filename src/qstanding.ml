@@ -2,13 +2,13 @@ open Eliom_lib
 open Eve_api
 
 let drup = Eve_api.charkey
-    ~keyId:74619
-    ~vCode:"aOzo6mrZ5FejPg23Nupnif0yQBcZJC8OYzHIv2t7k7xvzIX2r0z7qCVSZD68B4kE"
+    ~keyId:3613130
+    ~vCode:"jLJyRWbEAGaya60H8l3YJiOzxmUpNbOX7HQgBohP9ZGf2TqW7m5N9wimMKVmFdLs"
     ~charId:90872953
 
 let call () =
-  Ocsigen_messages.warning "Updating Corporation standings ..." ;
-  lwt x = apply_api ~https:true tq Character.contactList drup () in
+  Ocsigen_messages.warning "Updating Corporation standings..." ;
+  lwt x = apply_api ~https:false tq Character.contactList drup () in
   Lwt.return x
 
 
@@ -42,11 +42,13 @@ let error (x,s) =
 
 
 let to_seconds d =
-  Time.(Time.Period.to_seconds (Period.to_time d))
+  CalendarLib.Calendar.(Time.Period.to_seconds (Period.to_time d))
 
 let thread : _ Lwt.t =
   let error x = Lwt.wrap (fun () -> error x) in
-  let log d = Eliom_lib.debug "next update in %i s" (to_seconds d) in
+  let log d = Eliom_lib.debug "Next update will be in %i s" (to_seconds d) in
   try_lwt
     periodic_update ~log ~call ~error ~update ()
-  with e -> Ocsigen_messages.unexpected_exception e "corpo" ; raise e
+  with e ->
+    Ocsigen_messages.errlog (Printexc.get_backtrace ());
+    Ocsigen_messages.unexpected_exception e "corpo" ; raise e
