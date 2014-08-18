@@ -16,10 +16,10 @@ let get_image size typeid x =
     Lwt.return (Image.char size x)
 
 let color standing =
-       if standing > 5   then "excelent"
-  else if standing > 0   then "good"
-  else if standing = 0   then "neutral"
-  else if standing >= -5 then "bad"
+       if standing > 5.   then "excelent"
+  else if standing > 0.   then "good"
+  else if standing = 0.   then "neutral"
+  else if standing >= -5. then "bad"
   else                        "terrible"
 
 let format_contact head standings =
@@ -30,7 +30,7 @@ let format_contact head standings =
       tr ~a:[a_class [state]] [
         td ~a:[a_class ["icon"]] [img ~src ~alt:c.name ()] ;
         td [pcdata c.name] ;
-        td ~a:[a_class ["standing"]] [pcdata (string_of_int standing)] ]
+        td ~a:[a_class ["standing"]] [pcdata (string_of_float standing)] ]
     )
   in
   let thead =

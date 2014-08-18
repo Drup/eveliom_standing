@@ -8,7 +8,7 @@ let drup = Eve_api.charkey
 
 let call () =
   Ocsigen_messages.warning "Updating Corporation standings..." ;
-  lwt x = apply_api ~https:false tq Character.contactList drup () in
+  lwt x = apply_api ~log:Ocsigen_messages.warning ~https:true tq Character.contactList drup () in
   Lwt.return x
 
 
